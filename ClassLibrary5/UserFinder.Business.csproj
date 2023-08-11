@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary3\UserFinder.Entities.csproj" />
+    <ProjectReference Include="..\ClassLibrary4\UserFinder.DataAccess.csproj" />
+  </ItemGroup>
+
+</Project>
