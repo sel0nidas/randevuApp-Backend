@@ -22,15 +22,21 @@ namespace WebApplication2.Controllers
         }
 
         [HttpGet]
-        public List<Appointment> Get()
+        public List<AppointmentWithUser> Get()
         {
             return _appointmentservice.GetAllAppointments();
         }
 
         [HttpGet("getcalendar/{receiverId}")]
-        public List<Appointment> GetAppointmentsFromSelected(int receiverId)
+        public List<AppointmentWithUser> GetAppointmentsFromSelected(int receiverId)
         {
             return _appointmentservice.GetAppointmentsFromSelected(receiverId);
+        }
+
+        [HttpGet("getusercalendar/{senderId}")]
+        public List<AppointmentWithUser> GetAppointmentsFromSelectedForUser(int senderId)
+        {
+            return _appointmentservice.GetAppointmentsFromSelectedForUser(senderId);
         }
 
         [HttpGet("{id}")]
@@ -56,9 +62,14 @@ namespace WebApplication2.Controllers
         
 
         [HttpPost("create")]
-        public Appointment Post([FromBody]Appointment a)
+        public ActionResult<Appointment> Post([FromBody]Appointment a)
         {
-            return _appointmentservice.CreateAppointment(a);
+            if (_appointmentservice.GetAppointmentByDate(a.Date, a.Title, a.ReceiverId) == null)
+                return StatusCode(200, _appointmentservice.CreateAppointment(a));
+
+            else
+                return StatusCode(400);
+
         }
 
         [HttpPost("accept")]
@@ -83,6 +94,23 @@ namespace WebApplication2.Controllers
         public Appointment PostDelete(int id)
         {
             return _appointmentservice.DeleteAppointment(id);
+        }
+
+        [HttpPost("cancel")]
+        public ActionResult<Appointment> CancelDay(DateTime date, int receiverId)
+        {
+            if (DateTime.UtcNow.Date != date.Date)
+                return StatusCode(200, _appointmentservice.CancelAppointmentForTheDate(date, receiverId));
+
+            else
+                return StatusCode(400);
+
+        }
+
+        [HttpPost("seen")]
+        public void SeenAllNotifications(int senderId)
+        {
+            _appointmentservice.SeenAllNotifications(senderId);
         }
     }
 }

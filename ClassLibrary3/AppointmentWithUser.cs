@@ -1,39 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace UserFinder.Entities
 {
-    public class Appointment
+    public class AppointmentWithUser
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        [StringLength(50)]
+        public int AppointmentId;
         public string Title { get; set; }
+        
+        public string Name { get; set; }
 
-        [StringLength(300)]
         public string Description { get; set; }
 
-        [StringLength(300)]
         public string DescriptionFromDoctor { get; set; }
 
-        [StringLength(50)]
         public string EventType { get; set; }
 
-        [StringLength(50)]
         public string Status { get; set; } = "pending";
 
         public int ReceiverId { get; set; }
 
+        public Doctor ReceiverUser { get; set; }
+
         public int SenderId { get; set; }
-        
+
         public DateTime Date { get; set; }
 
-        public bool IsActive { get; set; } = true;
         public bool IsSeen { get; set; } = false;
+
         public DateTime OperationTime { get; set; }
     }
 }

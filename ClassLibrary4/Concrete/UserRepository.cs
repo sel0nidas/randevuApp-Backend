@@ -11,7 +11,7 @@ namespace UserFinder.DataAccess.Concrete
     public class UserRepository : IUserRepository
     {
         public User CreateUser(User u)
-        {
+        {   
             using (var UserDbCtx = new UserDbContext())
             {
                 using (var sha256 = SHA256.Create())
@@ -28,6 +28,47 @@ namespace UserFinder.DataAccess.Concrete
 
 
                 UserDbCtx.Users.Add(u);
+                UserDbCtx.SaveChanges();
+
+                return u;
+            }
+        }
+
+        public DoctorWithUser CreateDoctor(DoctorWithUser u)
+        {
+            using (var UserDbCtx = new UserDbContext())
+            {
+                using (var sha256 = SHA256.Create())
+                {
+                    // Send a sample text to hash.  
+                    var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(u.Password));
+                    // Get the hashed string.  
+                    var hash = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+                    // Print the string.   
+                    Console.WriteLine(hash);
+
+                    u.Password = hash.Substring(0, 50);
+                }
+
+                var user = new User {
+                    Name = u.Name,
+                    Password = u.Password,
+                    UserType = "doctor",
+                    Gender = u.Gender
+                };
+
+                UserDbCtx.Users.Add(user);
+                UserDbCtx.SaveChanges();
+
+                var doctor = new Doctor
+                {
+                    DoctorType = u.DoctorType,
+                    UserId = user.Id // userid is the id that i must have after inserting the user
+                    
+                };
+
+
+                UserDbCtx.Doctors.Add(doctor);
                 UserDbCtx.SaveChanges();
 
                 return u;

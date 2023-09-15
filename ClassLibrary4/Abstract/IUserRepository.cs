@@ -12,6 +12,9 @@ namespace UserFinder.DataAccess.Abstract
         User GetUserById(int id);
 
         User CreateUser(User u);
+
+        DoctorWithUser CreateDoctor(DoctorWithUser u);
+
         User UpdateUser(User u);
         void DeleteUser(int id);
 

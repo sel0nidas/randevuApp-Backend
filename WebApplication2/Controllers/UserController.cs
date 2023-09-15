@@ -40,6 +40,12 @@ namespace WebApplication2.Controllers
             return _userservice.CreateUser(u);
         }
 
+        [HttpPost("registerForDoctor")]
+        public DoctorWithUser PostDoctor([FromBody]DoctorWithUser u)
+        {
+            return _userservice.CreateDoctor(u);
+        }
+
         [HttpPost("login")]
         public User PostAndCheckUser([FromBody]User u)
         {

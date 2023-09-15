@@ -7,9 +7,11 @@ namespace UserFinder.Business.Abstract
 {
     public interface IAppointmentService
     {
-        List<Appointment> GetAllAppointments();
+        List<AppointmentWithUser> GetAllAppointments();
 
-        List<Appointment> GetAppointmentsFromSelected(int receiverId);
+        List<AppointmentWithUser> GetAppointmentsFromSelected(int receiverId);
+
+        List<AppointmentWithUser> GetAppointmentsFromSelectedForUser(int senderId);
 
         Appointment GetAppointmentById(int id);
 
@@ -26,5 +28,9 @@ namespace UserFinder.Business.Abstract
         Appointment RejectAppointment(Appointment a);
 
         Appointment DeleteAppointment(int id);
+
+        List<Appointment> CancelAppointmentForTheDate(DateTime date, int receiverId);
+
+        void SeenAllNotifications(int senderId);
     }
 }

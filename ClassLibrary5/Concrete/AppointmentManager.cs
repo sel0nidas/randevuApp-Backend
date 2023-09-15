@@ -33,13 +33,18 @@ namespace UserFinder.Business.Concrete
             return _appointmentRepository.DeleteAppointment(id);
         }
 
-        public List<Appointment> GetAllAppointments()
+        public List<AppointmentWithUser> GetAllAppointments()
         {
             return _appointmentRepository.GetAllAppointments();
         }
-        public List<Appointment> GetAppointmentsFromSelected(int receiverId)
+        public List<AppointmentWithUser> GetAppointmentsFromSelected(int receiverId)
         {
             return _appointmentRepository.GetAppointmentsFromSelected(receiverId);
+        }
+
+        public List<AppointmentWithUser> GetAppointmentsFromSelectedForUser(int receiverId)
+        {
+            return _appointmentRepository.GetAppointmentsFromSelectedForUser(receiverId);
         }
 
         public Appointment GetAppointmentById(int id)
@@ -64,6 +69,16 @@ namespace UserFinder.Business.Concrete
         public Appointment UpdateAppointment(Appointment a)
         {
             return _appointmentRepository.UpdateAppointment(a);
+        }
+
+        public List<Appointment> CancelAppointmentForTheDate(DateTime date, int receiverId)
+        {
+            return _appointmentRepository.CancelAppointmentForTheDate(date, receiverId);
+        }
+
+        public void SeenAllNotifications(int senderId)
+        {
+            _appointmentRepository.SeenAllNotifications(senderId);
         }
 
 

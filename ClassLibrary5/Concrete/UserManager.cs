@@ -21,6 +21,10 @@ namespace UserFinder.Business.Concrete
         {
             return _userRepository.CreateUser(u);
         }
+        public DoctorWithUser CreateDoctor(DoctorWithUser u)
+        {
+            return _userRepository.CreateDoctor(u);
+        }
 
         public void DeleteUser(int id)
         {

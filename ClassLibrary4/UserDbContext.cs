@@ -11,10 +11,12 @@ namespace UserFinder.DataAccess
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=GVY785;Database=randevuAppDb;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=GVY907;Database=randevuAppDb;Trusted_Connection=True;");
         }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Doctor> Doctors { get; set; }
 
         public DbSet<Appointment> Apppointments { get; set; }
     }

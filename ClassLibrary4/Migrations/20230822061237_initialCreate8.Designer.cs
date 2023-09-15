@@ -10,8 +10,8 @@ using UserFinder.DataAccess;
 namespace UserFinder.DataAccess.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20230731135049_initialCreateUser")]
-    partial class initialCreateUser
+    [Migration("20230822061237_initialCreate8")]
+    partial class initialCreate8
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,9 @@ namespace UserFinder.DataAccess.Migrations
                     b.Property<DateTime>("Date");
 
                     b.Property<string>("Description")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("DescriptionFromDoctor")
                         .HasMaxLength(50);
 
                     b.Property<string>("EventType")
@@ -55,6 +58,12 @@ namespace UserFinder.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DoctorType")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Gender")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Name")
                         .HasMaxLength(50);

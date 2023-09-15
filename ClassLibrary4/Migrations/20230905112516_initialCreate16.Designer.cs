@@ -10,8 +10,8 @@ using UserFinder.DataAccess;
 namespace UserFinder.DataAccess.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20230731092313_initialCreateAppointment")]
-    partial class initialCreateAppointment
+    [Migration("20230905112516_initialCreate16")]
+    partial class initialCreate16
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,10 +30,19 @@ namespace UserFinder.DataAccess.Migrations
                     b.Property<DateTime>("Date");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(50);
+                        .HasMaxLength(300);
+
+                    b.Property<string>("DescriptionFromDoctor")
+                        .HasMaxLength(300);
 
                     b.Property<string>("EventType")
                         .HasMaxLength(50);
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsSeen");
+
+                    b.Property<DateTime>("OperationTime");
 
                     b.Property<int>("ReceiverId");
 
@@ -50,16 +59,50 @@ namespace UserFinder.DataAccess.Migrations
                     b.ToTable("Apppointments");
                 });
 
+            modelBuilder.Entity("UserFinder.Entities.Doctor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DoctorType")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50);
+
+                    b.Property<int>("UserId");
+
+                    b.Property<string>("Workdays")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Worktimes")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Doctors");
+                });
+
             modelBuilder.Entity("UserFinder.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("DoctorType")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Gender")
+                        .HasMaxLength(50);
+
                     b.Property<string>("Name")
                         .HasMaxLength(50);
 
                     b.Property<string>("Password")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("UserType")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");

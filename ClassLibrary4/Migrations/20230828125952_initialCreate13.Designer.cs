@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UserFinder.DataAccess;
 
 namespace UserFinder.DataAccess.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230828125952_initialCreate13")]
+    partial class initialCreate13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,12 +37,6 @@ namespace UserFinder.DataAccess.Migrations
 
                     b.Property<string>("EventType")
                         .HasMaxLength(50);
-
-                    b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsSeen");
-
-                    b.Property<DateTime>("OperationTime");
 
                     b.Property<int>("ReceiverId");
 
@@ -66,6 +62,9 @@ namespace UserFinder.DataAccess.Migrations
                     b.Property<string>("DoctorType")
                         .HasMaxLength(50);
 
+                    b.Property<string>("Name")
+                        .HasMaxLength(50);
+
                     b.Property<int>("UserId");
 
                     b.Property<string>("Workdays")
@@ -84,6 +83,9 @@ namespace UserFinder.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DoctorType")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Gender")
                         .HasMaxLength(50);

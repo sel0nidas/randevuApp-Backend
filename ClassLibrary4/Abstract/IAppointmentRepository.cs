@@ -7,9 +7,11 @@ namespace UserFinder.DataAccess.Abstract
 {
     interface IAppointmentRepository
     {
-        List<Appointment> GetAllAppointments();
+        List<AppointmentWithUser> GetAllAppointments();
 
-        List<Appointment> GetAppointmentsFromSelected(int receiverId);
+        List<AppointmentWithUser> GetAppointmentsFromSelected(int receiverId);
+
+        List<AppointmentWithUser> GetAppointmentsFromSelectedForUser(int senderId);
 
         Appointment GetAppointmentById(int id);
 
@@ -27,5 +29,11 @@ namespace UserFinder.DataAccess.Abstract
 
 
         Appointment DeleteAppointment(int id);
+
+
+        List<Appointment> CancelAppointmentForTheDate(DateTime date, int receiverId);
+
+        void SeenAllNotifications(int senderId);
+
     }
 }
